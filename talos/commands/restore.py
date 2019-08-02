@@ -8,8 +8,16 @@ from talos.utils.load_model import load_model
 
 class Restore:
 
-    '''Utility class for restoring the assets from Deploy()
-    package.'''
+    '''Restores the scan_object that had been stored locally as a result
+    of talos.Deploy(scan_object, 'example')
+
+    USE:
+
+    diabetes = ta.Scan(x, y, p, input_model)
+    ta.Deploy(diabetes, 'diabetes')
+    ta.Restore('diabetes.zip')
+
+    '''
 
     def __init__(self, path_to_zip):
 
@@ -25,7 +33,7 @@ class Restore:
         z.extractall(self.extract_to)
 
         # add params dictionary
-        self.params = load(self.file_prefix + '_params.npy').item()
+        self.params = load(self.file_prefix + '_params.npy', allow_pickle=True).item()
 
         # add experiment details
         self.details = read_csv(self.file_prefix + '_details.txt', header=None)
