@@ -152,7 +152,9 @@ class Scan:
                  disable_progress_bar=False,
                  print_params=False,
                  clear_session=True,
-                 save_weights=True):
+                 save_weights=True,
+                 use_multiprocessing=False,
+                 max_processes=4):
 
         self.x = x
         self.y = y
@@ -189,6 +191,10 @@ class Scan:
         # performance
         self.clear_session = clear_session
         self.save_weights = save_weights
+        
+        # multiprocessing
+        self.use_multiprocessing = use_multiprocessing
+        self.max_processes = max_processes
         # input parameters section ends
 
         # start runtime

@@ -18,7 +18,7 @@ MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://autonom.io'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/autonomio/talos/'
-VERSION = '1.0'
+VERSION = '1.0.rz'
 
 
 try:
@@ -39,6 +39,7 @@ install_requires = ['tensorflow>=2.0.0',
                     'kerasplotlib',
                     'requests']
 
+install_requires = []
 
 if __name__ == "__main__":
 

@@ -5,11 +5,22 @@ def scan_round(self):
 
     import time
     import gc
-
+    import os
+    import sys
+    
     # print round params
     if self.print_params is True:
         print(self.round_params)
 
+    # per-pid results and log
+    from .scan_utils import initialize_log
+    if self.use_multiprocessing:
+        self._experiment_log = initialize_log(self)
+        fd = os.open(self._experiment_log[:-3] + "log", os.O_RDWR|os.O_CREAT)
+        os.dup2(fd, sys.stdout.fileno())
+        sys.stdout = os.fdopen(os.dup(sys.stdout.fileno()), "w")
+        sys.stderr = sys.stdout
+        
     # set start time
     round_start = time.strftime('%D-%H%M%S')
     start = time.time()
