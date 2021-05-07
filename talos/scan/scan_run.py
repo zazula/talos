@@ -22,7 +22,16 @@ def scan_run(self):
     processes = []
     total = len(self.param_object.param_index)
     count = 0
-    gpu_tickets = [0,0,0,0,0,0,0,0]
+    gpus = []
+    try:
+        gpus = tf.config.list_physical_devices('GPU')
+        print(len(gpus), "Physical GPUs,")
+    except Exception as e:
+        print(e)
+
+    gpu_slots = min(self.max_processes, len(gpus))
+    gpu_tickets = [0] * gpu_slots
+
     while True:
 
         if self.use_multiprocessing:
