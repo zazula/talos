@@ -1,8 +1,11 @@
 import os
 import multiprocessing
 from multiprocessing import Process
-import tensorflow as tf
-
+try:
+    import nvidia_smi
+except:
+    pass
+    
 os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
 multiprocessing.set_start_method('fork')
 
@@ -24,16 +27,15 @@ def scan_run(self):
     processes = []
     total = len(self.param_object.param_index)
     count = 0
-    gpus = []
+    num_gpus = 0
     try:
-        gpus = tf.config.list_physical_devices('GPU')
-        print(len(gpus), "Physical GPUs,")
-    except Exception as e:
-        print(e)
-
-    gpu_slots = min(self.max_processes, len(gpus))
-    gpu_tickets = [0] * gpu_slots
-
+        nvidia_smi.nvmlInit()
+        num_gpus = nvidia_smi.nvmlDeviceGetCount()
+        nvidia_smi.nvmlShutdown()
+    except:
+        pass
+    gpu_tickets = [0] * num_gpus
+    
     while True:
 
         if self.use_multiprocessing:
@@ -107,5 +109,6 @@ def scan_run(self):
     from .scan_finish import scan_finish
     self = scan_finish(self)
 
+    
     
     
