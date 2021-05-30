@@ -44,7 +44,7 @@ def scan_run(self):
                     except:
                         pass
                     if gpu_id != -1:
-                        gpu_tickets[gpu_id] = 0
+                        gpu_tickets[gpu_id] -= 1
                     processes.remove(p)
                     count += 1
                     print(f"completed {count} of {total} runs ({(100.0 * count) / total : 0.2f}%)")
@@ -63,8 +63,9 @@ def scan_run(self):
             # allocate a GPU
             gpu_id = 0
             try:
-                gpu_id = gpu_tickets.index(0)
-                gpu_tickets[gpu_id] = 1
+            	# reuse GPUs
+                gpu_id = gpu_tickets.index(min(gpu_tickets))
+                gpu_tickets[gpu_id] += 1
             except:
                 # no GPU available
                 gpu_id = -1
@@ -89,7 +90,7 @@ def scan_run(self):
                     pass
                 processes.remove(p)
                 if gpu_id != -1:
-                    gpu_tickets[gpu_id] = 0
+                    gpu_tickets[gpu_id] -= 1
                 count += 1
                 print(f"completed {count} of {total} runs ({(100.0 * count) / total : 0.2f}%)")
                 self.pbar.update(1)
