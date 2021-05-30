@@ -1,6 +1,8 @@
 import os
 import multiprocessing
 from multiprocessing import Process
+import tensorflow as tf
+
 os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
 multiprocessing.set_start_method('fork')
 
