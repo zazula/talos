@@ -41,9 +41,11 @@ class ExperimentLogCallback(Callback):
         self.final_out = []
 
     def on_train_end(self, logs={}):
-
+        sep = ','
+        if 'log_separator' in self.params:
+            sep = self.params['log_separator']
         f = open(self.name, 'a+')
-        [f.write(','.join(map(str, i)) + '\n') for i in self.final_out]
+        [f.write(sep.join(map(str, i)) + '\n') for i in self.final_out]
         f.close()
 
     def on_epoch_begin(self, epoch, logs={}):
