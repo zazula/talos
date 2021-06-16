@@ -8,7 +8,7 @@ def cols_to_multilabel(self):
     import pandas as pd
 
     # read in the experiment log
-    data = pd.read_csv(self._experiment_log)
+    data = pd.read_csv(self._experiment_log, index_col=False)
 
     # apply recuction window
     data = data.tail(self.reduction_window)
