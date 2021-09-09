@@ -33,7 +33,7 @@ def save_result(self):
     np.savetxt(self._experiment_log,
                self.result,
                fmt='%s',
-               delimiter=',')
+               delimiter='|')
 
 
 def result_todf(self):
@@ -46,7 +46,7 @@ def result_todf(self):
     cols = self.result[0]
     self.result = pd.DataFrame(self.result[1:])
     self.result.columns = cols
-
+    
     return self
 
 

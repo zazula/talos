@@ -8,8 +8,8 @@ def cols_to_multilabel(self):
     import pandas as pd
 
     # read in the experiment log
-    data = pd.read_csv(self._experiment_log)
-
+    data = pd.read_csv(self._experiment_log, sep='|')
+    
     # apply recuction window
     data = data.tail(self.reduction_window)
 
@@ -18,7 +18,7 @@ def cols_to_multilabel(self):
 
     # convert all hyperparameter columns to multi label columns
     for col in data.iloc[:, 1:].columns:
-
+    
         # get the dtype of the column data
         col_dtype = data[col].dtype
 
