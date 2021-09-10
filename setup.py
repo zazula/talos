@@ -39,6 +39,7 @@ install_requires = ['tensorflow>=2.0.0',
                     'kerasplotlib',
                     'requests']
 
+install_requires = []
 
 if __name__ == "__main__":
 

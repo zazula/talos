@@ -36,7 +36,7 @@ def recover_best_model(x_train,
     from talos.utils.validation_split import kfold
 
     # read the experiment log into a dataframe
-    df = pd.read_csv(experiment_log)
+    df = pd.read_csv(experiment_log, index_col=False)
 
     # handle input data scenarios
     if x_cross is None or y_cross is None:

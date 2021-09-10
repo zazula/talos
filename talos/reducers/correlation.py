@@ -46,7 +46,10 @@ def correlation(self, method):
     label, dtype, value = corr_values.split('~')
 
     # convert things back to their original dtype
-    value = np.array([value]).astype(dtype)[0]
+    try:
+        value = np.array([value]).astype(dtype)[0]
+    except Exception as e:
+        print(f'could not convert {value} to type {dtype} for parameter {label}')
 
     # this is where we modify the parameter space accordingly
     self.param_object.remove_is(label, value)
